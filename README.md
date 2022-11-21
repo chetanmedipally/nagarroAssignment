@@ -31,9 +31,50 @@ npm install
 mongod
 ```
 
+- Installing global dependencies
+
+```
+npm i typescript nyc -g
+
+```
+
 - Build and run the project
 
 ```
 npm run build
 npm start
+```
+
+- Run the test cases for the project
+
+```
+npm test
+```
+
+The test cases results will be displayed in the console.
+
+- Generate the coverage reports for the project
+
+```
+nyc node dist/src/app.js
+```
+
+Open another terminal and run the tests
+
+```
+npm test
+```
+
+Stop the server to see the coverage reports in the console.
+
+
+
+# Swagger API Implementation
+
+URL for the Swagger API's (Once server is up and running)
+
+```
+http://localhost:3000/api-docs
+
+
 ```
