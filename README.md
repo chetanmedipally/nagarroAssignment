@@ -12,10 +12,10 @@ To build and run this app locally you will need a few things:
 
 Create a .env file and add following contents into the file and save it
 
-NODE_ENV = development
-PORT = 3000
-MONGO_URI = mongodb://localhost:27017
-JWT_SECRET = abcd123
+- NODE_ENV = development
+- PORT = 3000
+- MONGO_URI = mongodb://localhost:27017
+- JWT_SECRET = abcd123
 
 # Getting started
 
