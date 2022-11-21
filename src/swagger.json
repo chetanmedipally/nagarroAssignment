@@ -1,0 +1,396 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple Nagarro asignment NodeJS API project",
+    "version": "1.0.0",
+    "title": "Friend Requests API",
+    "contact": {
+      "email": "chetan.medipally@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "paths": {
+    "/users/getusers": {
+      "get": {
+        "summary": "Get all the users",
+        "description": "Get all the users",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "itemsPerPage",
+            "in": "query",
+            "description": "items Per Page",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current Page",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/usersResponse"
+            }
+          },
+          "500": {
+            "description": "Error Response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "UnAuthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/getuserfriends": {
+      "get": {
+        "summary": "Get all the user's friends",
+        "description": "Get all the user's friends",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/usersResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Error Response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "UnAuthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "summary": "Signs Up a new User",
+        "description": "Signs Up a new User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Sign Up Input Parameters",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "confirmPassword": {
+                  "type": "string"
+                },
+                "userId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loginResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Error Response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Logs in a User",
+        "description": "Logs in a User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login Input Parameters",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loginResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Error Response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/requests/sendrequest": {
+      "post": {
+        "summary": "Sends a friend request",
+        "description": "Sends a friend request",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Request Body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "recipientUserId": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/requestResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Error Response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "UnAuthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/requests/ackrequest": {
+      "post": {
+        "summary": "Acknowledges a friend request",
+        "description": "Acknowledges a friend request",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Request Body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "requestId": {
+                  "type": "string"
+                },
+                "accept": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/requestResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Error Response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "UnAuthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "loginResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object"
+        },
+        "token": {
+          "type": "object"
+        }
+      }
+    },
+    "usersResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "users": {
+          "type": "array"
+        },
+        "totalUsers": {
+          "type": "integer"
+        }
+      }
+    },
+    "friendsResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "friends": {
+          "type": "array"
+        },
+        "totalFriends": {
+          "type": "integer"
+        }
+      }
+    },
+    "requestResponse": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "object"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "stack": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

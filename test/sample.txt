@@ -1,0 +1,48 @@
+UserModel
+
+email
+password  12Aq13456
+userId
+friends
+
+FriendRequestModel
+
+senderId
+reciepientId
+status
+
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const should = chai.should();
+const mongoose = require("mongoose");
+const server = require('../src/app');
+const User = require('../src/models/User');
+
+chai.use(chaiHttp);
+describe('Friend Requests API', function () {
+  it('should list all users on /api/users/getusers', function (done) {
+    chai.request(server)
+      .post('/api/users/login')
+      .send({
+        'email': 'mchtnkmr@gmail.com',
+        'password': '12Aq13456'
+      })
+      .end((err, res) => {
+        res.body.should.have.property('token');
+        var token = res.body.token;
+        chai.request(server)
+          .get('/api/users/getuser')
+          .set('Authorization', 'Bearer ' + token)
+          .end(function (err, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('message');
+            res.body.should.have.property('users');
+            res.body.should.have.property('totalUsers');
+            done();
+          })
+      })
+  });
+});
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTZAeWFob28uY29tIiwiaWF0IjoxNjY4OTU4Njg3LCJleHAiOjE2Njg5NjIyODd9.VL_vyB82__GN9m9XgO_f9PG2kuAogQ8mXrPKfpDuGzk
