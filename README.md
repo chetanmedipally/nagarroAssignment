@@ -10,6 +10,13 @@ To build and run this app locally you will need a few things:
 - Install [MongoDB](https://docs.mongodb.com/manual/installation/)
 - Install [VS Code](https://code.visualstudio.com/)
 
+Create a .env file and add following contents into the file and save it
+
+NODE_ENV = development
+PORT = 3000
+MONGO_URI = mongodb://localhost:27017
+JWT_SECRET = abcd123
+
 # Getting started
 
 - Clone the repository
@@ -67,8 +74,6 @@ npm test
 
 Stop the server to see the coverage reports in the console.
 
-
-
 # Swagger API Implementation
 
 URL for the Swagger API's (Once server is up and running)
@@ -78,3 +83,8 @@ http://localhost:3000/api-docs
 
 
 ```
+
+# API Response Times
+
+When an API is hit, the reponse time of the api is shown in the console with the name of the API.
+You can also fine the Postman collection for the APIs in the repository.
